@@ -1,13 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+// redux stepup
+import { createStore, applyMiddleware, compose } from "redux";
+import rootreducer from "./reducer";
+import { Provider } from "react-redux";
+import {thunk} from'redux-thunk'
+import { BrowserRouter ,Router} from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const composeenhancer =window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootreducer,composeenhancer(applyMiddleware(thunk)));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    
+    <Provider store={store}>
+    <BrowserRouter>
+    
+      <App />
+      </BrowserRouter>
+    </Provider>
+    
   </React.StrictMode>
 );
 
